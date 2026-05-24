@@ -1,11 +1,13 @@
 package org.example;
 
+import org.example.model.User;
 import org.example.repository.Database;
 import org.example.service.UserService;
 import org.example.utility.UtilityFunctions;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.List;
 
 /*
 
@@ -48,10 +50,15 @@ public class App {
 
         // Use this userService object to call the methods you define in that file
         UserService userService = new UserService(connection);
-        ResultSet rs = userService.getUserList();
-        UtilityFunctions.displayResultSet(rs);
 
         // TODO : write the method calls for your methods
 
+        List<User> userList = userService.getUserList();
+        System.out.println(userList);
+
+        userService.updateUserWithId(2, new User("", 30));
+
+        userList = userService.getUserList();
+        System.out.println(userList);
     }
 }
