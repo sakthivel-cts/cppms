@@ -34,4 +34,54 @@ public class UserService {
     }
 
     // TODO Complete the remaining database functions
+    public void addUser(String name, int age){
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement("INSERT INTO user(name, age) VALUES(?, ?)");
+            ps.setString(1, name);
+            ps.setInt(2, age);
+
+            ps.executeUpdate();
+
+            logger.info("User Added Successfully!!!");
+        } catch (SQLException e) {
+            logger.error("Error : ", e);
+        }
+    }
+
+    public ResultSet getId(int id){
+        PreparedStatement ps;
+        ResultSet rs = null;
+        try {
+            ps = connection.prepareStatement("SELECT * FROM user Where id = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            logger.info("User Derived Successfully!!!");
+        } catch (SQLException e) {
+            logger.error("Error : ", e);
+        }
+        return rs;
+    }
+    public void update(String name, int ID){
+        PreparedStatement ps;
+        try {
+            ps= connection.prepareStatement("UPDATE user SET name = ? WHERE id = ? ");
+            ps.setString(1,name);
+            ps.setInt(2,ID);
+            ps.executeUpdate();
+            logger.info("Updated Successfully!!!");
+        } catch (SQLException e) {
+            logger.error("Error",e);
+        }
+    }
+    public void delete(int id){
+        PreparedStatement ps;
+        try {
+            ps= connection.prepareStatement("DELETE FROM user WHERE id=?");
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

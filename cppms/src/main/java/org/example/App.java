@@ -48,10 +48,39 @@ public class App {
 
         // Use this userService object to call the methods you define in that file
         UserService userService = new UserService(connection);
+
+
+        userService.addUser("Adithya", 25);
+        userService.addUser("Kumar", 30);
+
+
+        System.out.println("---- All Users ----");
         ResultSet rs = userService.getUserList();
         UtilityFunctions.displayResultSet(rs);
 
-        // TODO : write the method calls for your methods
+
+        System.out.println("---- User By ID ----");
+        ResultSet rsById = userService.getId(1);
+        UtilityFunctions.displayResultSet(rsById);
+
+
+        userService.update("Sakthi", 1);
+
+
+
+
+        System.out.println("---- After Update ----");
+        ResultSet updatedRs = userService.getId(1);
+        UtilityFunctions.displayResultSet(updatedRs);
+
+
+        userService.delete(2);
+
+
+        System.out.println("---- After Delete ----");
+        ResultSet finalRs = userService.getUserList();
+        UtilityFunctions.displayResultSet(finalRs);
+
 
     }
 }
